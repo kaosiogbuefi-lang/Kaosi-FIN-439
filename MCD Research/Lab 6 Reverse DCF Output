@@ -1,0 +1,25 @@
+## MCD
+
+FCFF Year 1: 9563.3200
+FCFF Year 2: 10089.3026
+FCFF Year 3: 10593.7677
+FCFF Year 4: 11070.4873
+FCFF Year 5: 11513.3068
+PV of Five Explicit FCFF: 43052.1903
+Terminal Value at Year 5: 262247.5431
+PV of Terminal Value: 186978.8738
+Enterprise Value: 230031.0641
+Equity Value: 192553.0641
+Value per Diluted Share: 270.3258
+PV of Terminal Value as Share of Enterprise Value: 0.8128
+
+Sensitivity Grid: Value per Diluted Share
+WACC \ Terminal Growth | 2.0% | 2.5% | 3.0%
+6.0%                     | $317.53 | $363.26 | $424.22
+7.0%                     | $242.92 | $270.33 | $304.58
+8.0%                     | $193.20 | $211.20 | $232.80
+
+Reverse DCF: Uniform Five-Year Growth-Rate Shift
+Solved Shift: -1.2131%
+Target Share Price: $253.48
+Held Fixed: starting FCFF, WACC, terminal growth, non-operating cash, debt, diluted shares, and the relative five-year growth pattern.
