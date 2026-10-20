@@ -1,0 +1,15 @@
+YouTube link: https://www.youtube.com/watch?v=DXatkVIE-Sg
+
+Project 1 Video 3 - Investment Committee Presentation
+
+Hello. This is Video 3 of Project 1. The screen shows my McDonald's FCFF workbench. I have opened the application, and it contains input controls for the future revenue-growth assumptions.
+
+I am going to change FY2026 revenue growth slightly and press Calculate. The numbers at the bottom change accordingly. Value per share changed compared with the base case because revenue growth affects revenue first, then gross profit, operating profit, FCFF, and terminal value.
+
+Next, I am going to click Demo failing check. This makes terminal growth greater than or equal to WACC, which makes the terminal-value formula invalid. The workbench shows a clear failed check instead of producing misleading numbers. I then reset the workbench back to valid inputs.
+
+My recommendation is to watch and defer, and not initiate McDonald's at the $238.32 reference price. My FCFF range is $168.70 to $198.15 per share, which is below the market price, and the base value is $183.15 per share.
+
+The reverse DCF shows that, under my model, the market price requires materially higher annual revenue-growth assumptions while keeping the other base assumptions fixed. This does not prove that the market is wrong. It shows the amount of growth that the market price requires under this model.
+
+My committee ask is to defer initiating a position and continue monitoring operating and financing triggers. Thank you.

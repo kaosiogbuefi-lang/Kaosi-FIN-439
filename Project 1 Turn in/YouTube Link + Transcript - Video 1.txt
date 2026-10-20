@@ -1,0 +1,15 @@
+YouTube link: https://www.youtube.com/watch?v=yCEOd-e_CQQ
+
+Project 1 Video 1 - Research Evolution and AI-Output Check
+
+Hello. This is Video 1 for my Project 1 analysis of McDonald's. I am evaluating whether a long-only investment committee should initiate a position in McDonald's.
+
+This first file is my unchanged Edition A. My starting position was watch-defer. At that point, I thought McDonald's looked like a strong, cash-generating company, but I did not have the valuation completed yet. I also did not have an updated share count or a comparison with the current market price. I identified those as the main things I still needed to research.
+
+Now I am switching to my Edition B file. My final recommendation is still watch-defer, but it is more specific. My reference date is September 23, 2026. At that time, MCD traded at $238.32, and my FCFF model gives a range of about $168.70 to $198.15 per share, which is below that price. Therefore, I would not initiate a position at that reference price.
+
+The main change from Edition A to Edition B came from course instruction, my own analysis, and AI-assisted organization. I built a five-year FCFF model, added sensitivity and reverse-DCF analysis, and used peer P/E and EV/EBITDA as cross-checks.
+
+Next, I am moving to the research-evolution Markdown file. This file shows the changes in the table. One suggestion I received from AI was to use peer valuation beside my DCF. I checked that suggestion and qualified it instead of fully accepting it. P/E and FCFF use different valuation objects and capital-structure conventions. Also, the P/E group is small, and QSR, one of the peers, has discontinued-operations issues. Because of that, I show the peer results separately and do not average them into my DCF.
+
+Lastly, the evidence that would change my view would be stronger future comparable sales, unit growth, margins, and lower capital spending. A lower market price could also create a sufficient margin of safety.

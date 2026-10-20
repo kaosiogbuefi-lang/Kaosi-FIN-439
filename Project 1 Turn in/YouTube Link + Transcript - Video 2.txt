@@ -1,0 +1,13 @@
+YouTube link: https://www.youtube.com/watch?v=0vuQlbXfRtM
+
+Project 1 Video 2 - Codebase Walkthrough
+
+Hello. This is Video 2 for Project 1. The file on screen first gives the instructions for running the code. This next file is the main FCFF engine.
+
+The model starts with financial-statement inputs and forecasts McDonald's from 2026 through 2030. Revenue growth affects revenue, which affects profit and operating cash flows. The model calculates FCFF by taking operating profit after tax, adding depreciation, and subtracting capital spending and other investments.
+
+The model discounts the cash flows at a 7.05% WACC. It calculates terminal value at the end of 2030, moves from enterprise value to equity value, and divides by diluted shares to calculate value per share.
+
+I am now running the model from the terminal. The output includes the forecast, valuation, and validation checks. The base-case result is $183.15 per share.
+
+The checks confirm the known answer, the base-year balance reconciliation, the forecast balance-sheet and cash-flow ties, and the DCF checks. In this output, the checks pass. One important limitation is that terminal value is 81.3% of enterprise value. This means that the valuation is sensitive to long-term growth and WACC assumptions even though the model passes its checks.
