@@ -1,4 +1,4 @@
-"""Lab 18 Streamlit app for a deterministic 10-K Buffett screen.
+"""Lab 19 Streamlit legend panel, powered by one deterministic EDGAR engine.
 
 Run with: streamlit run buffett_app.py
 """
@@ -8,37 +8,49 @@ from pathlib import Path
 
 import streamlit as st
 
-from buffett_10k import analyze_ticker, format_percent, format_value, printed_number_tokens
+from buffett_10k import analyze_ticker, format_percent, format_percent_two_decimals, format_value, printed_number_tokens
 
 
-def memo_path(ticker):
-    """Return the expected local memo path for a ticker."""
-    return Path(f"{ticker.upper()}_buffett_memo.md")
+INVESTORS = {
+    "Buffett": ("checks", "buffett"),
+    "Cathie Wood": ("cathie_checks", "cathie_wood"),
+    "Burry": ("burry_checks", "burry"),
+}
+
+
+def memo_path(ticker, filename_part):
+    """Return the memo file name written by the matching investor skill."""
+    return Path(f"{ticker.upper()}_{filename_part}_memo.md")
 
 
 def memo_number_flags(memo, allowed_tokens):
-    """Return every distinct numeric token in a memo that code did not print."""
+    """Return numeric tokens in a memo which the deterministic script did not print."""
     memo_tokens = set(re.findall(r"\b\d+(?:\.\d+)?%?", memo))
     return sorted(memo_tokens - allowed_tokens)
 
 
 def display_rows(rows):
-    """Render a table with each computed value and its source XBRL tag."""
+    """Render facts, code-computed values, and their XBRL tags."""
     display = []
     for row in rows:
+        liabilities_ratio = (
+            None
+            if row["Liabilities"] is None or row["Equity"] in (None, 0)
+            else row["Liabilities"] / row["Equity"]
+        )
         display.append(
             {
                 "Fiscal year end": row["Fiscal year end"],
                 "Revenue ($m)": format_value(row["Revenue"]),
                 "Revenue tag": row["tags"]["Revenue"],
                 "Net income ($m)": format_value(row["Net income"]),
-                "Net income tag": row["tags"]["Net income"],
                 "Operating cash flow ($m)": format_value(row["Operating cash flow"]),
-                "Operating cash flow tag": row["tags"]["Operating cash flow"],
                 "Capital spending ($m)": format_value(row["Capital spending"]),
-                "Capital spending tag": row["tags"]["Capital spending"],
+                "R&D ($m)": format_value(row["Research and development"]),
+                "R&D tag": row["tags"]["Research and development"],
                 "Equity ($m)": format_value(row["Equity"]),
-                "Equity tag": row["tags"]["Equity"],
+                "Liabilities ($m)": format_value(row["Liabilities"]),
+                "Liabilities / equity": "not known" if liabilities_ratio is None else f"{liabilities_ratio:.2f}",
                 "ROE": format_percent(row["ROE"]),
                 "Owner earnings ($m)": format_value(row["Owner earnings"]),
             }
@@ -46,8 +58,17 @@ def display_rows(rows):
     st.dataframe(display, hide_index=True, use_container_width=True)
 
 
-st.set_page_config(page_title="Buffett 10-K Screen", layout="wide")
-st.title("Buffett 10-K Screen")
+def panel_rows(analysis):
+    """Make the investor-by-check panel directly from the three code check sets."""
+    rows = []
+    for investor, (check_key, _) in INVESTORS.items():
+        for check, result in analysis[check_key].items():
+            rows.append({"Investor": investor, "Check": check, "Result": result})
+    return rows
+
+
+st.set_page_config(page_title="Legend Panel", layout="wide")
+st.title("Legend Panel")
 st.caption("Data from SEC EDGAR; built with AI help, a learning demonstration, not investment advice.")
 
 ticker = st.sidebar.text_input("Ticker", value="COST").strip().upper()
@@ -68,19 +89,24 @@ chart_rows = [
 st.line_chart(chart_rows, x="Fiscal year end", y=["Owner earnings", "Net income"], x_label="Fiscal year end", y_label="USD millions")
 display_rows(analysis["rows"])
 
-st.subheader("Buffett checks")
-for label, result in analysis["checks"].items():
-    st.write(f"- **{label}:** {result}")
+st.subheader("Panel checks")
+st.dataframe(panel_rows(analysis), hide_index=True, use_container_width=True)
+st.write(f"**Revenue growth a year, first year to last:** {format_percent_two_decimals(analysis['revenue_growth'])}")
 
-st.subheader("Buffett-style memo")
-path = memo_path(ticker)
-if not path.exists():
-    st.warning(f"No memo found at {path.name}. Run the skill and save its memo there.")
-else:
-    memo = path.read_text(encoding="utf-8")
-    st.markdown(memo)
-    flags = memo_number_flags(memo, printed_number_tokens(analysis))
-    if flags:
-        st.error("Numbers in the memo not printed by the script: " + ", ".join(flags))
-    else:
-        st.success("Every number in this memo was printed by the EDGAR script.")
+st.subheader("Investor memos")
+allowed = printed_number_tokens(analysis)
+columns = st.columns(3)
+for column, (investor, (_, filename_part)) in zip(columns, INVESTORS.items()):
+    with column:
+        st.markdown(f"### {investor}")
+        path = memo_path(ticker, filename_part)
+        if not path.exists():
+            st.warning(f"No memo found at {path.name}. Run that skill and save its memo there.")
+            continue
+        memo = path.read_text(encoding="utf-8")
+        st.markdown(memo)
+        flags = memo_number_flags(memo, allowed)
+        if flags:
+            st.error("Unprinted number(s): " + ", ".join(flags))
+        else:
+            st.success("Every number was printed by the EDGAR script.")

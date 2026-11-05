@@ -24,8 +24,13 @@ FLOW_METRICS = {
         "PaymentsToAcquirePropertyPlantAndEquipment",
         "PaymentsToAcquireProductiveAssets",
     ],
+    "Research and development": ["ResearchAndDevelopmentExpense"],
 }
-POINT_METRICS = {"Equity": ["StockholdersEquity"]}
+POINT_METRICS = {
+    "Equity": ["StockholdersEquity"],
+    "Liabilities": ["Liabilities"],
+}
+CATHIE_GROWTH_THRESHOLD = 0.15
 
 
 def sec_json(url):
@@ -107,6 +112,11 @@ def format_percent(value):
     return "not known" if value is None else f"{value * 100:.1f}%"
 
 
+def format_percent_two_decimals(value):
+    """Format a percent to two decimals when the panel calls for extra precision."""
+    return "not known" if value is None else f"{value * 100:.2f}%"
+
+
 def build_rows(facts):
     """Turn EDGAR facts into the last five fiscal-year rows and computed metrics."""
     rows = []
@@ -155,18 +165,72 @@ def buffett_checks(rows):
     }
 
 
+def revenue_growth_per_year(rows):
+    """Return first-to-last annualized revenue growth, or None for a missing input."""
+    revenues = [row["Revenue"] for row in rows]
+    if len(revenues) < 2 or any(value is None or value <= 0 for value in revenues):
+        return None
+    return (revenues[-1] / revenues[0]) ** (1 / (len(revenues) - 1)) - 1
+
+
+def cathie_wood_checks(rows):
+    """Compute Cathie Wood's growth and R&D checks without estimating missing data."""
+    growth = revenue_growth_per_year(rows)
+    latest = rows[-1]
+    research = latest["Research and development"]
+    revenue = latest["Revenue"]
+    research_ratio = research / revenue if research is not None and revenue not in (None, 0) else None
+    return {
+        f"Revenue grew {CATHIE_GROWTH_THRESHOLD * 100:.0f}% or more a year, first year to last": (
+            "not known" if growth is None else "pass" if growth >= CATHIE_GROWTH_THRESHOLD else "fail"
+        ),
+        "R&D 5% or more of revenue, latest year": (
+            "not known" if research_ratio is None else "pass" if research_ratio >= 0.05 else "fail"
+        ),
+    }
+
+
+def burry_checks(rows):
+    """Compute Burry's cash-conversion and balance-sheet checks."""
+    cash_vs_income = [(row["Operating cash flow"], row["Net income"]) for row in rows]
+    latest = rows[-1]
+    ratio = (
+        latest["Liabilities"] / latest["Equity"]
+        if latest["Liabilities"] is not None and latest["Equity"] not in (None, 0)
+        else None
+    )
+    return {
+        "Operating cash flow at least net income every year": (
+            "not known"
+            if any(cash is None or income is None for cash, income in cash_vs_income)
+            else "pass" if all(cash >= income for cash, income in cash_vs_income) else "fail"
+        ),
+        "Liabilities no more than twice equity, latest year": (
+            "not known" if ratio is None else "pass" if ratio <= 2 else "fail"
+        ),
+    }
+
+
 def analyze_ticker(ticker):
     """Download facts and return only code-computed data for a later memo judgment."""
     facts = company_facts(ticker)
     rows = build_rows(facts)
     if len(rows) < 5:
         raise ValueError("Fewer than five annual 10-K fiscal years were found.")
-    return {"ticker": ticker.upper(), "company": facts.get("entityName", ticker.upper()), "rows": rows, "checks": buffett_checks(rows)}
+    return {
+        "ticker": ticker.upper(),
+        "company": facts.get("entityName", ticker.upper()),
+        "rows": rows,
+        "checks": buffett_checks(rows),
+        "cathie_checks": cathie_wood_checks(rows),
+        "burry_checks": burry_checks(rows),
+        "revenue_growth": revenue_growth_per_year(rows),
+    }
 
 
 def report_text(analysis):
     """Render the complete script output, including each source XBRL tag."""
-    headings = ["Fiscal year end", "Revenue", "Net income", "Operating cash flow", "Capital spending", "Equity", "ROE", "Owner earnings"]
+    headings = ["Fiscal year end", "Revenue", "Net income", "Operating cash flow", "Capital spending", "Research and development", "Equity", "Liabilities", "ROE", "Owner earnings", "Liabilities / equity"]
     lines = [f"{analysis['company']} ({analysis['ticker']}) — USD millions", " | ".join(headings)]
     for row in analysis["rows"]:
         lines.append(
@@ -177,15 +241,23 @@ def report_text(analysis):
                     format_value(row["Net income"]),
                     format_value(row["Operating cash flow"]),
                     format_value(row["Capital spending"]),
+                    format_value(row["Research and development"]),
                     format_value(row["Equity"]),
+                    format_value(row["Liabilities"]),
                     format_percent(row["ROE"]),
                     format_value(row["Owner earnings"]),
+                    "not known" if row["Liabilities"] is None or row["Equity"] in (None, 0) else f"{row['Liabilities'] / row['Equity']:.2f}",
                 ]
             )
         )
         lines.append("  XBRL tags: " + "; ".join(f"{label}={tag}" for label, tag in row["tags"].items()))
     lines.append("Buffett checks")
     lines.extend(f"{label}: {result}" for label, result in analysis["checks"].items())
+    lines.append("Cathie Wood checks")
+    lines.extend(f"{label}: {result}" for label, result in analysis["cathie_checks"].items())
+    lines.append(f"Revenue growth a year, first year to last: {format_percent_two_decimals(analysis['revenue_growth'])}")
+    lines.append("Burry checks")
+    lines.extend(f"{label}: {result}" for label, result in analysis["burry_checks"].items())
     return "\n".join(lines)
 
 
