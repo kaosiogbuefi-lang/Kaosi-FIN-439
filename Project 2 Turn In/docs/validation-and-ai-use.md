@@ -66,6 +66,22 @@ This is an AI-assisted learning demonstration, not investment advice. The model 
 
 ## Locked Changed-Input Record
 
+### 2026-11-23 reserve-minimum test — prediction frozen before execution
+
+**Status at this commit:** prediction only. This section and its companion runner were committed and pushed before the scenario was executed. The completed comparison will cite this prediction commit by its Git hash; no execution output is included in this pre-run commit.
+
+| Field | Record |
+|---|---|
+| Baseline inputs | 6.50% annual estimated net-return objective; 3.0% BIL-plus-IEF reserve minimum; 0 bp illustrative annual cost; default price file; verified DGS10 vintage. |
+| Changed input | Reserve minimum: 3.0% to **90.0%**. This exact 90.0% scenario was not part of the earlier objective, cost, partial-month, or 60.0% reserve checks. |
+| Prediction before execution | Both the all-month and last-36-return searches will be infeasible at the unchanged 6.50% objective. The model will return a rejection with no allocation range or allocation-movement comparison, and it will not crash. |
+| Financial reasoning | A 90% BIL-plus-IEF minimum leaves at most 10% for the higher-return non-reserve sleeve. The reserve sleeves and that limited non-reserve allocation are expected to be insufficient to reach the 6.50% estimated net-return target. |
+| Measurable success criteria | (1) `base` is infeasible; (2) `stress` is infeasible; (3) recommendation action is `Reject`; (4) no executable recommendation range is shown; (5) the script completes normally and preserves the default methodology. |
+| Planned command | `python changed_input_reserve_test.py` |
+| AI assistance | Instructor-authorized AI-assisted workflow, as communicated by the student. This is not represented as an AI-off or human-only prediction. |
+
+### Historical preliminary objective test
+
 **Record status:** prepared before the `changed_input_test.py` run. Commit this file before executing the run in the final repository; replace `COMMIT-PENDING` with the actual commit hash.
 
 | Field | Record |
