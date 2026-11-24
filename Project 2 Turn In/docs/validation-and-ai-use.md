@@ -80,6 +80,20 @@ This is an AI-assisted learning demonstration, not investment advice. The model 
 | Planned command | `python changed_input_reserve_test.py` |
 | AI assistance | Instructor-authorized AI-assisted workflow, as communicated by the student. This is not represented as an AI-off or human-only prediction. |
 
+### 2026-11-23 reserve-minimum test — completed result
+
+The frozen prediction commit was [`6dec567a2e51f8f0709d1d58fc2b50a5d1cf31c9`](https://github.com/kaosiogbuefi-lang/Kaosi-FIN-439/commit/6dec567a2e51f8f0709d1d58fc2b50a5d1cf31c9), with Git timestamp `2026-11-23T18:29:38-06:00`. It was pushed to `main` before `python changed_input_reserve_test.py` was executed.
+
+| Frozen success criterion | Actual result | Disposition |
+|---|---|---|
+| All-month base is infeasible | No feasible mix met the unchanged 6.50% net-return objective and 90.0% reserve minimum. | Matched |
+| Last-36-return stress is infeasible | No feasible mix met the unchanged 6.50% net-return objective and 90.0% reserve minimum. | Matched |
+| Recommendation is `Reject` | `Reject` — base allocation has no feasible portfolio. | Matched |
+| No executable range or movement comparison | The centralized recommendation returns `allocation_range: None` for an infeasible base. | Matched |
+| Script handles infeasibility | The script printed the two infeasibility messages and exited normally. | Matched |
+
+**Reconciliation:** there was no difference between prediction and actual result. The 90.0% reserve rule leaves too little room for non-reserve sleeves to reach the 6.50% target in either window. The full console output is retained in [changed-input-reserve-output.md](../output/changed-input-reserve-output.md). This evidence is AI-assisted under the instructor authorization communicated by the student; it does not claim AI was disabled.
+
 ### Historical preliminary objective test
 
 **Record status:** prepared before the `changed_input_test.py` run. Commit this file before executing the run in the final repository; replace `COMMIT-PENDING` with the actual commit hash.
