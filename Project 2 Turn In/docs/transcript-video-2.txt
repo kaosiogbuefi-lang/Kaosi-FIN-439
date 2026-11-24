@@ -1,1 +1,209 @@
-Draft transcript: record Video 2 by reading docs/video-2-script.md, then replace this file with the corrected transcript from the actual recording.
+# Video 2 - Transcript
+
+Caption-derived transcript; obvious transcription errors corrected. Timestamps follow the supplied captions. Audio has not been independently reviewed.
+
+**00:00:01** - Hello. So this is video two for project
+
+**00:00:03** - two. Um so for this video I'll be
+
+**00:00:06** - walking through the code behind uh my
+
+**00:00:08** - portfolio decision application and same
+
+**00:00:11** - as before I use Codex and Visual Studio
+
+**00:00:14** - to help develop and test the
+
+**00:00:16** - application. So this is the first file
+
+**00:00:18** - and it's responsible for the user
+
+**00:00:20** - interface.
+
+**00:00:22** - So it allows the user to change the
+
+**00:00:24** - return objective, the minimum reserve
+
+**00:00:27** - requirement
+
+**00:00:28** - and uh investment cost and historical
+
+**00:00:31** - data.
+
+**00:00:33** - So the data settings are at a 6.5%
+
+**00:00:35** - return objective and 3% minimum reserve
+
+**00:00:38** - and these inputs are passed into the
+
+**00:00:41** - calculation engine rather than being
+
+**00:00:43** - permanently fixed and not being able to
+
+**00:00:44** - change. So they are able to change
+
+**00:00:46** - basically.
+
+**00:00:48** - So this next file
+
+**00:00:51** - um so before running any calculations
+
+**00:00:54** - application checks the quality so it
+
+**00:00:56** - kind of validates the quality of the
+
+**00:00:59** - historical data and it checks for missing
+
+**00:01:01** - values duplicate dates invalid prices
+
+**00:01:05** - um and whether enough observations are
+
+**00:01:06** - available
+
+**00:01:08** - and we also have the data sets which all
+
+**00:01:11** - the numbers just the prices CSV file and
+
+**00:01:15** - it contains four funds with 60 monthly
+
+**00:01:18** - observations.
+
+**00:01:20** - So going on to this next file, uh this
+
+**00:01:23** - is where the main financial um
+
+**00:01:26** - calculations happen. So
+
+**00:01:30** - um this function converts the historical
+
+**00:01:34** - prices into monthly returns. So to
+
+**00:01:37** - calculate the annualized returns, the
+
+**00:01:38** - average monthly return is multiplied by
+
+**00:01:40** - 12
+
+**00:01:42** - and the monthly standard deviation is
+
+**00:01:44** - multiplied by the square root of 12 to
+
+**00:01:47** - calculate the annualized volatility.
+
+**00:01:50** - Um and
+
+**00:01:53** - and also in this same
+
+**00:01:56** - file uh this is a function responsible
+
+**00:01:59** - for finding the optimal portfolio within
+
+**00:02:01** - the model. So it tests different
+
+**00:02:03** - combinations of the asset weights in
+
+**00:02:06** - five percentage point increments and any
+
+**00:02:09** - portfolio that fails the return
+
+**00:02:10** - objective or the minimum reserve
+
+**00:02:12** - requirement is eliminated or filled. So
+
+**00:02:15** - short selling is also excluded and the
+
+**00:02:17** - portfolio must be fully invested. And
+
+**00:02:20** - out of all the portfolios that meet
+
+**00:02:21** - these requirements, the function selects
+
+**00:02:23** - the one with the lowest volatility.
+
+**00:02:27** - So going back to this one
+
+**00:02:31** - um hold on.
+
+**00:02:35** - So the section brings the calculations
+
+**00:02:37** - together. So it kind of evaluates the
+
+**00:02:39** - equal weight portfolio
+
+**00:02:42** - um inverse volatility portfolio and
+
+**00:02:44** - Meridian benchmark and the optimized
+
+**00:02:47** - portfolios. So the recommendation is
+
+**00:02:49** - based on the actual results. So if the
+
+**00:02:51** - base portfolio is feasible, the model
+
+**00:02:54** - rejects it. Or if sorry, if the base
+
+**00:02:55** - portfolio is infeasible, the model
+
+**00:02:58** - rejects it. If the stress portfolio is
+
+**00:03:00** - infeasible, the process stops. So if the
+
+**00:03:03** - allocation changes by at least 25
+
+**00:03:05** - percentage points between the two
+
+**00:03:07** - estimation windows, the application
+
+**00:03:10** - recommends a pilot instead of a full
+
+**00:03:12** - adoption. And the allocation range is
+
+**00:03:14** - also checked under both estimation
+
+**00:03:16** - windows to make sure its endpoints meet
+
+**00:03:20** - um the model requirements.
+
+**00:03:25** - Um and then this last file is um
+
+**00:03:30** - counters our validation test. So the
+
+**00:03:33** - minimum reserve requirement was
+
+**00:03:34** - increased from 3% to 90% while the
+
+**00:03:39** - return objective stayed at 6 6.5%.
+
+**00:03:42** - So before executing the test the
+
+**00:03:44** - prediction was committed to GitHub. So
+
+**00:03:46** - the prediction was that neither
+
+**00:03:48** - estimation window would produce a
+
+**00:03:50** - feasible portfolio and that the um the
+
+**00:03:54** - application would return reject. And as
+
+**00:03:57** - shown in the code, the actual results
+
+**00:04:01** - match the prediction and no allocation
+
+**00:04:03** - range was generated. So this
+
+**00:04:05** - demonstrates that the decision logic
+
+**00:04:07** - responds to changing inputs instead of
+
+**00:04:09** - simply displaying a predetermined
+
+**00:04:11** - recommendation.
+
+**00:04:12** - However, passing these model tests does
+
+**00:04:15** - not establish full compliance of the
+
+**00:04:16** - Meridian's official mandate.
+
+**00:04:20** - And yeah, that's it for video two.

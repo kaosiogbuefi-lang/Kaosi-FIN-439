@@ -1,1 +1,195 @@
-Draft transcript: record Video 3 by reading docs/video-3-script.md, then replace this file with the corrected transcript from the actual recording.
+# Video 3 - Transcript
+
+Caption-derived transcript; obvious transcription errors corrected. Timestamps follow the supplied captions. Audio has not been independently reviewed.
+
+**00:00:01** - Okay, so this is video three for project
+
+**00:00:04** - number two.
+
+**00:00:06** - Uh so in this video I'll be presenting
+
+**00:00:08** - my portfolio recommendation for Meridian
+
+**00:00:11** - and I use Codex to help develop and
+
+**00:00:13** - test this application.
+
+**00:00:15** - Um so their original objective is to
+
+**00:00:17** - achieve a return of inflation plus 4%
+
+**00:00:20** - after cost over a rolling 5-year period.
+
+**00:00:24** - So for this application, I simplified
+
+**00:00:26** - that objective to a 6.5% estimated
+
+**00:00:28** - annual return with at least a 3%
+
+**00:00:31** - allocated to reserve eligible assets. So
+
+**00:00:34** - my goal is to minimize portfolio
+
+**00:00:36** - volatility while meeting these
+
+**00:00:37** - requirements.
+
+**00:00:40** - So before recommending a portfolio, I
+
+**00:00:43** - compared three alternatives. So there
+
+**00:00:45** - was the equal weight portfolio and it
+
+**00:00:47** - generated an estimated return of 3.28%.
+
+**00:00:51** - while the inverse volatility portfolio
+
+**00:00:53** - generated um 3.47%
+
+**00:00:57** - and neither of those met the return
+
+**00:00:59** - objective. Um their original benchmark
+
+**00:01:02** - generated a higher return of 6.76%
+
+**00:01:05** - but had volatility of 12.3% and failed
+
+**00:01:09** - the reserve requirement. The optimized
+
+**00:01:11** - portfolio allocates 60% to treasury
+
+**00:01:13** - bills and 40% to global equities and it
+
+**00:01:17** - generates an estimated return of 6.9%
+
+**00:01:21** - with volatility with a volatility of
+
+**00:01:23** - only 6%. While meeting the model's
+
+**00:01:26** - reserve requirements.
+
+**00:01:29** - So meeting the model's requirements
+
+**00:01:32** - doesn't necessarily mean that the
+
+**00:01:34** - portfolio satisfies um the entire
+
+**00:01:36** - mandate. um additional information is
+
+**00:01:39** - needed to verify areas such as liquidity
+
+**00:01:43** - um quarterly payouts and turnover. So
+
+**00:01:45** - because of this I wouldn't recommend an
+
+**00:01:48** - immediate implementation of the plan.
+
+**00:01:53** - So I also included um a 10-year Treasury
+
+**00:01:57** - yield as a monitoring tool. So the
+
+**00:02:00** - verified observation
+
+**00:02:02** - available at the decision date was 5%
+
+**00:02:05** - which was above um my threshold of 4.5%.
+
+**00:02:10** - And this kind of just helps monitor the
+
+**00:02:12** - interest rate exposure but I'm not
+
+**00:02:15** - really using it to predict uh the future
+
+**00:02:17** - returns.
+
+**00:02:19** - So to test the stability of my
+
+**00:02:21** - recommendation I repeated the
+
+**00:02:22** - optimization using only the last 36
+
+**00:02:26** - um monthly returns. So the allocation
+
+**00:02:29** - changed to 85% Treasury bills and 15%
+
+**00:02:32** - global equities with an estimated return
+
+**00:02:34** - of 6.9% and a volatility of 1.8%.
+
+**00:02:39** - So even though both of the portfolios
+
+**00:02:41** - met the model requirements, there is
+
+**00:02:43** - still um a 25-percentage
+
+**00:02:48** - point change in allocation. And this
+
+**00:02:50** - kind of reaches my stability threshold
+
+**00:02:52** - and suggests that the recommendation is
+
+**00:02:55** - sensitive to the historical period being
+
+**00:02:57** - used.
+
+**00:03:01** - Another limitation is that the final
+
+**00:03:04** - October observation was downloaded
+
+**00:03:06** - before the month ended. So removing the
+
+**00:03:08** - observation changes the base allocation
+
+**00:03:10** - to 65% Treasury bills and 35% global
+
+**00:03:14** - equities. I also tested the different
+
+**00:03:17** - investment costs. So at 50 basis points,
+
+**00:03:21** - the model increases its allocation to
+
+**00:03:23** - equities to maintain that return
+
+**00:03:25** - objective. And these tests kind of show
+
+**00:03:29** - uh the changes in data can change the
+
+**00:03:32** - portfolio decision.
+
+**00:03:36** - So um I also tested um what happens when
+
+**00:03:40** - the reserve uh requirement increases
+
+**00:03:42** - from 3% to 90%. And the prediction was
+
+**00:03:45** - that neither estimation window would
+
+**00:03:46** - produce a feasible portfolio. And that's
+
+**00:03:49** - actually what happened. Uh the
+
+**00:03:51** - application rejected the portfolio
+
+**00:03:53** - rather than forcing recommendation.
+
+**00:03:57** - So um based on my analysis, I'm
+
+**00:03:59** - recommending I'm recommending a pilot
+
+**00:04:02** - rather than a full adoption. Um I'm
+
+**00:04:04** - asking the committee to approve further
+
+**00:04:06** - testing of the model within this range
+
+**00:04:08** - and not implementing the actual
+
+**00:04:10** - portfolio. So before implementation, I
+
+**00:04:13** - would want to verify the remaining
+
+**00:04:15** - mandate requirements, update the
+
+**00:04:17** - historical data and confirm actual
+
+**00:04:19** - investment costs. Thank you.
